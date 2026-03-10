@@ -2,14 +2,17 @@
 
 set -euo pipefail
 
-BUILD_DIR=/volume/cuda.build
-INSTALL_DIR=/volume/cuda.install
+BUILD_DIR=/volume/sycl.build
+INSTALL_DIR=/volume/sycl.install
+
+ZE_INCLUDE=/dpcpp_home/_deps/level-zero-loader-src/include
+DPL_INCLUDE=/opt/intel/oneapi/dpl/2022.10/include
 
 mkdir -p ${BUILD_DIR}
-find ${BUILD_DIR} -type d -name "CMakeFiles" -exec rm -rf {} + -o -type f -name "CMakeCache.txt" -delete
+rm -rf ${BUILD_DIR}/*
 
 cmake                                                             \
-  -S /gadgetron                                                   \
+  -S /gadgetron2                                                  \
   -B ${BUILD_DIR}                                    \
   -G Ninja                                                        \
   -DCMAKE_EXPORT_COMPILE_COMMANDS=ON                              \
@@ -25,10 +28,17 @@ cmake                                                             \
   -DPLPLOT_CXX_LIB:FILEPATH=/plplot/lib/libplplotcxx.so.15.0.0    \
   -DPLPLOT_LIB:FILEPATH=/plplot/lib/libplplot.so.17.0.0           \
   -DBUILD_PYTHON_SUPPORT=FALSE                                    \
-  -DUSE_MKL=OFF                                                    \
-  -DUSE_CUDA=ON                                                   \
+  -DUSE_MKL=OFF                                                   \
+  -DUSE_SYCL=ON                                                   \
   -DUSE_OPENMP=OFF                                                \
-  -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR}                     \
+  -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR}                           \
   -DBUILD_SUPPRESS_WARNINGS=TRUE                                  \
   -DBUILD_TESTING=ON                                              \
+  -DONEMKL_PATH=/oneMKLwithCublas                                 \
+  -DLIBSYCL=/dpcpp_home/install/lib/libsycl.so                    \
+  -DDPCT_INCLUDE_PATH=/opt/intel/oneapi/dpcpp-ct/2025.3/include   \
+  -DZERO_LEVEL_INCLUDE_PATH=${ZE_INCLUDE}                         \
+  -DONEAPI_DPL_INCLUDE_PATH=${DPL_INCLUDE}                        \
+  -DMKL_INCLUDE_PATH=/oneMKLwithCublas/include                    \
+  -DSYCL_INCLUDE_PATH=/dpcpp_home/include                         \
   -Wno-dev  
