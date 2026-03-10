@@ -8,7 +8,7 @@ INSTALL_DIR=/volume/sycl.install
 mkdir -p ${INSTALL_DIR}
 
 
-cmake --build ${BUILD_DIR} -j16 --config Release # --verbose # --target test_all
+cmake --build ${BUILD_DIR} -j16 --config RelWithDebInfo # --verbose # --target test_all
 mkdir -p ${INSTALL_DIR}
 cmake --install ${BUILD_DIR} --prefix  ${INSTALL_DIR} # --component test_all
 

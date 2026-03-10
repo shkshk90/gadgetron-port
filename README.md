@@ -17,3 +17,16 @@ gadgetron -s -c config.xml < input.h5 > output.h5
     The same gadgetron binary supports a -s / --from_stream flag that bypasses networking entirely:
     `gadgetron -s -c config.xml < input.h5 > output.h5`
     This uses StreamConsumer to process data from stdin/stdout or files — no server, no sockets, no forking.
+
+
+## Some notes:
+
+### After porting:
+
+- `alignas(16)` issue with `axpy` and complex doubles
+- dpct_holders and missing kernel names
+- Some mis translated stuff, like the clash with `spmv`
+- Replacing `axpy` with a custom kernel
+- `sycl::ext::oneapi::experimental::use_root_sync` issue, that caused `CUDA_ERROR_COOPERATIVE_LAUNCH_TOO_LARGE` issue AT runtime
+-  Device pointer dereference segfault: Replaced *mm_pair.first/*mm_pair.second with explicit queue.memcpy to safely copy values from device to host
+

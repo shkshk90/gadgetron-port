@@ -13,4 +13,4 @@ mkdir -p ${INSTALL_DIR}
 cmake --install ${BUILD_DIR} --prefix  ${INSTALL_DIR} # --component test_all
 
 echo "run :: "
-echo "       LD_LIBRARY_PATH=/dpcpp_home/install/lib:/oneMKLwithCublas/lib:/opt/intel/oneapi/2025.3/lib:\$LD_LIBRARY_PATH  ${INSTALL_DIR}"
+echo "       ${INSTALL_DIR}/bin/test_all"
