@@ -7,8 +7,7 @@ set -euo pipefail
 dpct \
     -p /volume/cuda.build \
     --in-root /gadgetron \
-    --out-root /volume/gadgetron3 \
-    --change-cuda-files-extension-only \
+    --out-root /gadgetron2 \
     --no-incremental-migration \
     --output-file=/volume/dpct.output \
     --stop-on-parse-err \
