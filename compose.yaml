@@ -1,0 +1,22 @@
+services:
+  gadgetron2:
+    build: 
+      context: .
+      network: host
+      ulimits:
+        nproc: 65535
+        nofile:
+          soft: 20000
+          hard: 40000
+    command: ["/bin/bash"]
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              capabilities: ["gpu"]
+    volumes:
+      - ./gadgetron:/gadgetron:ro
+      - ./cmd:/cmd:ro
+      - ./gadgetron2:/gadgetron2
+      - ./volume:/volume
