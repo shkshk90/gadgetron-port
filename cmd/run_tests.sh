@@ -13,11 +13,10 @@ mkdir -p /volume/unit_tests
 mkdir -p "$DIR_NAME"
 
 echo "Running CUDA tests"
-${CUDA_DIR}/bin/test_all ${FLAGS} --gtest_output="json:${DIR_NAME}/cuda.json" &
+${CUDA_DIR}/bin/test_all ${FLAGS} --gtest_output="json:${DIR_NAME}/cuda.json"
 
 echo "Running sycl tests"
 LD_LIBRARY_PATH=/dpcpp_home/install/lib:/oneMKLwithCublas/lib:/opt/intel/oneapi/2025.3/lib:\$LD_LIBRARY_PATH  \
-    ${SYCL_DIR}/bin/test_all ${FLAGS} --gtest_output="json:${DIR_NAME}/sycl.json" &
+    ${SYCL_DIR}/bin/test_all ${FLAGS} --gtest_output="json:${DIR_NAME}/sycl.json"
 
-echo "Awaiting tests to finish"
-wait
+echo "Tests are done"
